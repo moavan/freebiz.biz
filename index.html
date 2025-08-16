@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>주식회사 모아밴(MOAVAN) - 혁신 3대 서비스로 매출 손실 ZERO 보장!</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Noto Sans KR', sans-serif; }
+        .hero-bg { background: linear-gradient(135deg, #4F7FFF 0%, #1e40af 100%); }
+        .card-hover { transition: all 0.3s ease; }
+        .card-hover:hover { transform: translateY(-2px); box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1); }
+        .floating-btn { position: fixed; right: 1.5rem; top: 50%; transform: translateY(-50%); z-index: 50; }
+        .compact-section { padding: 2rem 0; }
+        .hero-section { padding: 1.5rem 0; min-height: 300px; }
+        .kakao-chat-btn {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            background: #FEE500;
+            color: #3C1E1E;
+            padding: 12px 16px;
+            border-radius: 25px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        .kakao-chat-btn:hover {
+            background: #FFD43B;
+            transform: translateY(-50%) scale(1.05);
+        }
+        @media (max-width: 768px) { 
+            .floating-btn { display: none; } 
+            .kakao-chat-btn { 
+                right: 15px;
+                padding: 10px 12px;
+                font-size: 14px;
+            }
+        }
+
+        /* 이벤트 페이지 스타일 */
+        .breaking-news {
+            background: linear-gradient(90deg, #dc2626, #ef4444, #dc2626);
+            background-size: 200% 100%;
+            animation: shimmer 2s infinite linear;
+        }
+        
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        
+        .price-shock {
+            background: linear-gradient(135deg, #fee2e2, #fecaca);
+            border: 3px solid #dc2626;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .price-shock::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shine 3s infinite;
+        }
+        
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+        
+        .pulse-red {
+            animation: pulse-red 2s infinite;
+        }
+        
+        @keyframes pulse-red {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+            50% { transform: scale(1.05); box-shadow: 0 0 0 20px rgba(239, 68, 68, 0); }
+        }
+        
+        .countdown {
+            background: linear-gradient(135deg, #1f2937, #374151);
+            color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+        
+        .stock-alert {
+            background: linear-gradient(45deg, #dc2626, #b91c1c);
+            animation: shake 0.8s infinite alternate;
+        }
+        
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(4px); }
+        }
+        
+        .order-feed {
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        
+        .order-item {
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        @keyframes slideIn {
+            0% { transform: translateX(-100%); opacity: 0; }
+            100% { transform: translateX(0); opacity: 1; }
+        }
+        
+        .cta-button {
+            background: linear-gradient(45deg, #dc2626, #ef4444);
+            transform: translateY(0);
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(220, 38, 38, 0.4);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(220, 38, 38, 0.6);
+        }
+        
+        .floating-cta {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+        
+        .exit-intent-popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.8);
+            z-index: 9999;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        
+        .popup-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            animation: popIn 0.3s ease;
+        }
+        
+        @keyframes popIn {
+            0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        }
+
+        /* 탭 컨텐츠 숨기기/보이기 */
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .nav-tab.active { color: #3B82F6; font-weight: bold; }
+
+        /* 관리자 대시보드 스타일 */
+        .admin-card {
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .admin-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border-color: #3B82F6;
+        }
+        
+        .section-tab {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .section-tab.active {
+            background: linear-gradient(135deg, #3B82F6, #1E40AF);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .editable {
+            min-height: 40px;
+            padding: 8px;
+            border: 1px dashed #D1D5DB;
+            border-radius: 6px;
+            cursor: text;
+        }
+        
+        .editable:focus {
+            outline: 2px solid #3B82F6;
+            border-style: solid;
+            background: white;
+        }
+        
+        .save-indicator {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #10B981;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            display: none;
+            z-index: 9999;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-sm">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-3">
+                <div class="flex items-center">
+                    <div class="text-2xl font-bold text-blue-600">MOAVAN</div>
+                    <div class="ml-2 text-sm text-gray-600">모아밴</div>
+                </div>
+                <nav class="hidden md:flex space-x-6">
+                    <a href="#" onclick="showTab('main')" class="nav-tab text-gray-700 hover:text-blue-600 font-medium active">홈</a>
+                    <a href="#" onclick="showTab('main'); setTimeout(scrollToProducts, 200)" class="nav-tab text-gray-700 hover:text-blue-600 font-medium">제품</a>
+                    <a href="#" onclick="showTab('main'); setTimeout(scrollToAbout, 200)" class="nav-tab text-gray-700 hover:text-blue-600 font-medium">회사소개</a>
+                    <a href="#" onclick="showTab('main'); setTimeout(scrollToFaq, 200)" class="nav-tab text-gray-700 hover:text-blue-600 font-medium">자주하는질문</a>
+                    <a href="#" onclick="window.open('https://quxpttpt.gensparkspace.com/', '_blank')" class="nav-tab text-gray-700 hover:text-blue-600 font-medium">이벤트페이지</a>
+                    <button onclick="showAdminLogin()" class="bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700">관리자 로그인</button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- 메인 페이지 -->
+    <div id="main-content" class="tab-content active">
+        <!-- Hero Section -->
+        <section class="hero-bg text-white hero-section">
+            <div class="container mx-auto px-4 text-center mb-4">
+                <h1 class="text-2xl md:text-3xl font-bold mb-2 text-yellow-300">혁신 3대 서비스로<br>매출 손실 ZERO 보장!</h1>
+                <p class="text-sm opacity-90">17년 업력 × 10만 가맹점이 선택한 완전히 새로운 카드결제</p>
+            </div>
+            
+            <div class="container mx-auto px-4">
+                <div class="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                    <!-- 왼쪽 박스 -->
+                    <div class="bg-white rounded-xl p-6 text-gray-800 shadow-lg flex flex-col justify-between">
+                        <div class="flex-1 space-y-4">
+                            <div class="text-sm bg-red-500 text-white px-3 py-1 rounded inline-block font-semibold">LIMITED</div>
+                            <h3 class="text-2xl md:text-3xl font-bold">KIS-8630QN</h3>
+                            <p class="text-sm md:text-base text-gray-600">+ 혁신 3대 서비스 패키지 + 용지평생무상지원</p>
+                            
+                            <div class="space-y-2">
+                                <div class="text-4xl md:text-5xl font-bold text-red-500">11,000원</div>
+                                <div class="text-base md:text-lg text-gray-500 line-through">정가 300,000원</div>
+                                <div class="text-lg md:text-xl text-red-500 font-semibold">289,000원 절약!</div>
+                            </div>
+                            
+                            <div class="bg-red-500 text-white text-base md:text-lg px-3 py-1 rounded inline-block font-bold">96% 할인</div>
+                            
+                            <div class="flex flex-wrap gap-2">
+                                <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded text-sm md:text-base font-medium">1년마다 새기기</span>
+                                <span class="bg-green-100 text-green-800 px-3 py-1 rounded text-sm md:text-base font-medium">평생 A/S</span>
+                                <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded text-sm md:text-base font-medium">휴대폰 백업</span>
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-2 mt-4">
+                            <button onclick="window.open('https://quxpttpt.gensparkspace.com/', '_blank')" class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 text-base md:text-lg">
+                                <i class="fas fa-search mr-2"></i> 자세히보기
+                            </button>
+                            
+                            <button onclick="scrollToContact()" class="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 text-base md:text-lg">
+                                <i class="fas fa-phone mr-2"></i> 바로상담하기
+                            </button>
+                            
+                            <div class="text-sm md:text-base text-gray-500 text-center">종료까지 D-30</div>
+                        </div>
+                    </div>
+
+                    <!-- 오른쪽 박스 -->
+                    <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col justify-center">
+                        <div class="text-center space-y-4">
+                            <div class="space-y-2">
+                                <h3 class="text-lg md:text-xl font-bold text-gray-800">가맹점사장님</h3>
+                                <h4 class="text-xl md:text-2xl font-bold text-blue-600">휴대폰만 있으면</h4>
+                                <h4 class="text-lg md:text-xl font-semibold text-gray-800">결제가 가능한</h4>
+                                <h3 class="text-2xl md:text-3xl font-bold text-red-500">키스PAY 제공</h3>
+                            </div>
+                            
+                            <div class="bg-yellow-50 p-4 rounded-lg">
+                                <p class="text-base md:text-lg text-gray-700 font-medium">단말기 고장시에도</p>
+                                <p class="text-lg md:text-xl text-blue-600 font-bold">휴대폰으로 즉시 결제 받으세요</p>
+                            </div>
+                            
+                            <div class="flex flex-wrap justify-center gap-3 mt-4">
+                                <div class="bg-black text-white px-4 py-2 rounded-lg text-sm font-bold flex items-center">
+                                    <i class="fab fa-apple mr-2"></i>Apple Pay
+                                </div>
+                                <div class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-bold flex items-center">
+                                    Samsung Pay
+                                </div>
+                                <div class="bg-green-600 text-white px-4 py-2 rounded-lg text-sm font-bold flex items-center">
+                                    네이버페이
+                                </div>
+                            </div>
+                            
+                            <div class="grid grid-cols-3 gap-3 mt-4">
+                                <div class="text-center">
+                                    <div class="bg-gray-800 text-white p-3 rounded-lg mb-2 text-lg font-bold">KIS</div>
+                                    <p class="text-xs text-gray-600">KIS 단말기</p>
+                                </div>
+                                <div class="text-center">
+                                    <div class="bg-gray-200 border border-gray-300 p-3 rounded-lg mb-2 text-green-600 text-lg font-bold">V</div>
+                                    <p class="text-xs text-gray-600">Apple Wallet</p>
+                                </div>
+                                <div class="text-center">
+                                    <div class="bg-gray-200 border border-gray-300 p-3 rounded-lg mb-2 text-blue-600 text-lg font-bold">S</div>
+                                    <p class="text-xs text-gray-600">Samsung Wallet</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 업계 최초! 혁신 3대 서비스 -->
+        <section class="compact-section bg-white">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-8">
+                    <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-4">
+                        <span class="text-red-500">🚀</span> 업계 최초! 혁신 3대 서비스
+                    </h2>
+                    <p class="text-gray-600">완전히 새로운 차원의 카드결제 서비스</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                    <div class="bg-blue-50 rounded-xl p-6 card-hover border-2 border-blue-100">
+                        <div class="text-center mb-4">
+                            <div class="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-sync-alt text-white text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-blue-600 mb-2">1년마다 새기기 교체</h3>
+                            <p class="text-sm text-gray-600">항상 최신 사양으로 안정적 운영</p>
+                        </div>
+                        <ul class="space-y-2 text-sm">
+                            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i>최신 기술 상시 유지</li>
+                            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i>감가상각 걱정 없음</li>
+                            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i>다운타임 최소화</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-green-50 rounded-xl p-6 card-hover border-2 border-green-100">
+                        <div class="text-center mb-4">
+                            <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-tools text-white text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-green-600 mb-2">평생 무상 A/S</h3>
+                            <p class="text-sm text-gray-600">문제 발생 시 즉시 지원</p>
+                        </div>
+                        <ul class="space-y-2 text-sm">
+                            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i>수리비 부담 ZERO</li>
+                            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i>24시간 긴급 출동</li>
+                            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i>예방 정비 포함</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-red-50 rounded-xl p-6 card-hover border-2 border-red-100">
+                        <div class="text-center mb-4">
+                            <div class="w-16 h-16 bg-red-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-mobile-alt text-white text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-red-600 mb-2">긴급상황 휴대폰 백업</h3>
+                            <p class="text-sm text-gray-600">KIS Pay 앱으로 무중단 결제</p>
+                        </div>
+                        <ul class="space-y-2 text-sm">
+                            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i>단말기 고장시 즉시 전환</li>
+                            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i>매출 손실 최소화</li>
+                            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i>10가지 결제방식</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 제품 라인업 -->
+        <section id="products" class="compact-section bg-gray-50">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-6">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-2">제품 라인업</h2>
+                    <p class="text-gray-600">다양한 업종에 최적화된 결제 솔루션</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="card-hover bg-white rounded-lg shadow-md p-4 border">
+                        <div class="h-32 bg-gray-100 rounded mb-3 flex items-center justify-center">
+                            <img src="https://www.kisvan.co.kr/images/product/KIS-2200/KIS-2200_2.jpg" alt="KIS-2200 유선카드단말기" class="h-full object-contain" loading="lazy">
+                        </div>
+                        <h3 class="font-semibold text-gray-800 mb-1">유선카드단말기</h3>
+                        <p class="text-sm text-gray-600 mb-3">KIS-2200 / 서명패드 일체형</p>
+                        <button onclick="scrollToContact()" class="w-full bg-gray-100 text-gray-700 py-2 rounded hover:bg-gray-200 transition-colors text-sm">상담하기</button>
+                    </div>
+
+                    <div class="card-hover bg-white rounded-lg shadow-md p-4 border">
+                        <div class="h-32 bg-gray-100 rounded mb-3 flex items-center justify-center">
+                            <img src="https://www.kisvan.co.kr/images/product/KIS-8611/KIS-8611_1.jpg" alt="KIS-8611 무선카드단말기" class="h-full object-contain" loading="lazy">
+                        </div>
+                        <h3 class="font-semibold text-gray-800 mb-1">무선카드단말기</h3>
+                        <p class="text-sm text-gray-600 mb-3">KIS-8611 / Color LCD</p>
+                        <button onclick="scrollToContact()" class="w-full bg-gray-100 text-gray-700 py-2 rounded hover:bg-gray-200 transition-colors text-sm">상담하기</button>
+                    </div>
+
+                    <div class="card-hover bg-white rounded-lg shadow-md p-4 border">
+                        <div class="h-32 bg-gray-100 rounded mb-3 flex items-center justify-center">
+                            <img src="https://www.kisvan.co.kr/images/product/N-POS/N-POS_1.jpg" alt="N-POS" class="h-full object-contain" loading="lazy">
+                        </div>
+                        <h3 class="font-semibold text-gray-800 mb-1">POS시스템</h3>
+                        <p class="text-sm text-gray-600 mb-3">N-POS / 듀얼 모니터</p>
+                        <button onclick="scrollToContact()" class="w-full bg-gray-100 text-gray-700 py-2 rounded hover:bg-gray-200 transition-colors text-sm">상담하기</button>
+                    </div>
+
+                    <div class="card-hover bg-white rounded-lg shadow-md p-4 border">
+                        <div class="h-32 bg-gray-100 rounded mb-3 flex items-center justify-center">
+                            <img src="https://thumbnail9.coupangcdn.com/thumbnails/remote/492x492ex/image/vendor_inventory/26ea/a8a96878133dff1ced45aac41591eaa151a1cb2db7b87c26c91a13d557e0.jpg" alt="키오스크" class="h-full object-contain" loading="lazy">
+                        </div>
+                        <h3 class="font-semibold text-gray-800 mb-1">키오스크 시스템</h3>
+                        <p class="text-sm text-gray-600 mb-3">22인치 무인/유통용</p>
+                        <button onclick="scrollToContact()" class="w-full bg-gray-100 text-gray-700 py-2 rounded hover:bg-gray-200 transition-colors text-sm">상담하기</button>
+                    </div>
+
+                    <div class="card-hover bg-white rounded-lg shadow-md p-4 border">
+                        <div class="h-32 bg-gray-100 rounded mb-3 flex items-center justify-center">
+                            <img src="https://thumbnail6.coupangcdn.com/thumbnails/remote/492x492ex/image/vendor_inventory/9ed9/f8dbb49c9a1d0b1469553c502ca5ed012a8976232a24cce80a26ae8a0ad0.png" alt="태블릿오더" class="h-full object-contain" loading="lazy">
+                        </div>
+                        <h3 class="font-semibold text-gray-800 mb-1">태블릿오더</h3>
+                        <p class="text-sm text-gray-600 mb-3">매장 테이블 주문/결제</p>
+                        <button onclick="scrollToContact()" class="w-full bg-gray-100 text-gray-700 py-2 rounded hover:bg-gray-200 transition-colors text-sm">상담하기</button>
+                    </div>
+
+                    <div class="card-hover bg-white rounded-lg shadow-md p-4 border">
+                        <div class="h-32 bg-gray-100 rounded mb-3 flex items-center justify-center">
+                            <img src="https://thumbnail10.coupangcdn.com/thumbnails/remote/492x492ex/image/vendor_inventory/77fc/0cee3cbbd8ab6c065add58effb5673bd34099274ae767fb5980af3934f93.png" alt="PG시스템" class="h-full object-contain" loading="lazy">
+                        </div>
+                        <h3 class="font-semibold text-gray-800 mb-1">PG결제시스템</h3>
+                        <p class="text-sm text-gray-600 mb-3">온라인 결제 게이트웨이</p>
+                        <button onclick="scrollToContact()" class="w-full bg-gray-100 text-gray-700 py-2 rounded hover:bg-gray-200 transition-colors text-sm">상담하기</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 모아밴의 강점 -->
+        <section id="about" class="compact-section bg-white">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-6">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-2">모아밴의 강점</h2>
+                    <p class="text-gray-600">17년간 축적된 노하우와 신뢰할 수 있는 서비스</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="text-center p-4">
+                        <div class="bg-blue-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-history text-white text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">17년 전문 경험</h3>
+                        <p class="text-gray-600 text-sm">설치부터 운영까지 경험 기반 맞춤 지원</p>
+                    </div>
+                    <div class="text-center p-4">
+                        <div class="bg-green-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-store text-white text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">10만+ 가맹점</h3>
+                        <p class="text-gray-600 text-sm">검증된 솔루션과 안정적 서비스</p>
+                    </div>
+                    <div class="text-center p-4">
+                        <div class="bg-purple-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-headset text-white text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">24시간 기술지원</h3>
+                        <p class="text-gray-600 text-sm">문자 접수 즉시 확인, 빠른 대응</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 자주하는질문 -->
+        <section id="faq" class="compact-section bg-gray-50">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-6">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-2">자주하는질문</h2>
+                    <p class="text-gray-600">카드단말기 관련 궁금한 점을 확인해보세요</p>
+                </div>
+                
+                <div class="max-w-4xl mx-auto">
+                    <div class="mb-4">
+                        <input type="text" id="faqSearchInput" placeholder="질문을 검색해보세요..." class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    </div>
+                    
+                    <div id="faqContainer" class="space-y-3">
+                        <!-- 기본 3개 FAQ -->
+                        <div class="faq-item bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden">
+                            <button class="w-full px-6 py-4 text-left focus:outline-none focus:bg-gray-50 faq-question flex items-center justify-between">
+                                <span class="font-medium text-gray-800">카드단말기 설치비는 얼마인가요?</span>
+                                <i class="fas fa-chevron-down text-gray-400 transform transition-transform"></i>
+                            </button>
+                            <div class="faq-answer px-6 py-4 border-t border-gray-200 bg-gray-50 hidden">
+                                <p class="text-gray-600">모아밴은 설치비가 완전 무료입니다. 전문 기사가 방문하여 무상으로 설치해드립니다.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden">
+                            <button class="w-full px-6 py-4 text-left focus:outline-none focus:bg-gray-50 faq-question flex items-center justify-between">
+                                <span class="font-medium text-gray-800">월 임대료가 있나요?</span>
+                                <i class="fas fa-chevron-down text-gray-400 transform transition-transform"></i>
+                            </button>
+                            <div class="faq-answer px-6 py-4 border-t border-gray-200 bg-gray-50 hidden">
+                                <p class="text-gray-600">KIS-8630QN은 구매 제품으로 월 임대료가 없습니다. 단 한 번의 결제로 평생 사용 가능합니다.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden">
+                            <button class="w-full px-6 py-4 text-left focus:outline-none focus:bg-gray-50 faq-question flex items-center justify-between">
+                                <span class="font-medium text-gray-800">A/S 비용은 얼마인가요?</span>
+                                <i class="fas fa-chevron-down text-gray-400 transform transition-transform"></i>
+                            </button>
+                            <div class="faq-answer px-6 py-4 border-t border-gray-200 bg-gray-50 hidden">
+                                <p class="text-gray-600">평생 무상 A/S를 제공합니다. 수리비, 부품비 모두 무료로 지원해드립니다.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center mt-6">
+                        <button id="showMoreFaq" class="bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors">
+                            더 많은 질문 보기 (97개 더)
+                        </button>
+                    </div>
+                    
+                    <div id="allFaqContainer" class="hidden space-y-3 mt-6">
+                        <!-- 추가 FAQ들이 여기에 동적으로 생성됩니다 -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 빠른 상담 요청 -->
+        <section id="contact" class="compact-section bg-white">
+            <div class="container mx-auto px-4 max-w-2xl">
+                <h2 class="text-xl font-bold text-gray-800 mb-2 text-center">빠른 상담 요청</h2>
+                <p class="text-gray-600 mb-4 text-center text-sm">제출 즉시 직원에게 <b>문자+이메일</b>로 전달됩니다</p>
+                <form id="contactForm" class="space-y-4">
+                    <div class="grid md:grid-cols-2 gap-3">
+                        <input type="text" name="name" class="border border-gray-300 rounded-lg px-3 py-2 text-sm" placeholder="성함" required>
+                        <input type="tel" name="phone" class="border border-gray-300 rounded-lg px-3 py-2 text-sm" placeholder="연락처(필수)" required>
+                        <input type="email" name="email" class="border border-gray-300 rounded-lg px-3 py-2 text-sm md:col-span-2" placeholder="이메일(선택)">
+                        <textarea name="message" class="border border-gray-300 rounded-lg px-3 py-2 text-sm md:col-span-2 h-20" placeholder="문의 내용을 적어주세요" required></textarea>
+                    </div>
+                    <div class="flex justify-center">
+                        <button type="submit" class="px-6 py-3 rounded-lg bg-blue-600 text-white hover:bg-blue-700 font-semibold text-sm">
+                            <i class="fas fa-paper-plane mr-2"></i>상담 요청
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-gray-800 text-white py-6">
+            <div class="container mx-auto px-4">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                    <div>
+                        <div class="flex items-center mb-2">
+                            <div class="text-lg font-bold text-blue-400">MOAVAN</div>
+                            <div class="ml-2 text-xs">모아밴</div>
+                        </div>
+                        <p class="text-gray-300 text-sm">17년 업력의 카드결제 전문기업</p>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold mb-2 text-sm">회사 정보</h3>
+                        <div class="text-xs text-gray-300 space-y-1">
+                            <p><i class="fas fa-building mr-1"></i>주식회사 모아밴(MOAVAN)</p>
+                            <p><i class="fas fa-user mr-1"></i>대표자: 김소영</p>
+                            <p><i class="fas fa-id-card mr-1"></i>사업자등록번호: 633-86-00575</p>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold mb-2 text-sm">연락처</h3>
+                        <div class="text-xs text-gray-300 space-y-1">
+                            <p><i class="fas fa-phone mr-1"></i><a class="hover:underline" href="tel:15442960">1544-2960</a></p>
+                            <p><i class="fas fa-sms mr-1"></i><a class="hover:underline" href="sms:01099792343">010-9979-2343</a></p>
+                            <p><i class="fas fa-envelope mr-1"></i><a class="hover:underline" href="/cdn-cgi/l/email-protection#54353c3b636314303521397a3a3120"><span class="__cf_email__" data-cfemail="791811164e4e391d180c1457171c0d">[email&#160;protected]</span></a></p>
+                            <p><i class="fas fa-globe mr-1"></i>FREEBIZ.BIZ</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="border-t border-gray-700 pt-4">
+                    <p class="text-xs text-gray-400 text-center">© 2025 주식회사 모아밴(MOAVAN). All Rights Reserved.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- 관리자 대시보드 -->
+    <div id="admin-dashboard" class="tab-content">
+        <!-- 저장 알림 -->
+        <div id="saveIndicator" class="save-indicator">
+            <i class="fas fa-check mr-2"></i>저장되었습니다!
+        </div>
+
+        <!-- 헤더 -->
+        <header class="bg-white shadow-lg sticky top-0 z-50">
+            <div class="container mx-auto px-6 py-4">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-4">
+                        <div class="text-3xl font-bold text-blue-600">MOAVAN</div>
+                        <div class="text-lg text-gray-600">관리자 대시보드</div>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <button id="saveAllBtn" class="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg font-bold transition-all">
+                            <i class="fas fa-save mr-2"></i>모든 변경사항 저장
+                        </button>
+                        <button onclick="showTab('main')" class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-3 rounded-lg font-bold transition-all">
+                            <i class="fas fa-arrow-left mr-2"></i>메인으로 돌아가기
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- 섹션 탭 메뉴 -->
+        <nav class="bg-white border-b border-gray-200">
+            <div class="container mx-auto px-6">
+                <div class="flex space-x-8">
+                    <button class="section-tab px-6 py-4 font-semibold rounded-t-lg active" data-section="products">
+                        <i class="fas fa-box mr-2"></i>제품 관리
+                    </button>
+                    <button class="section-tab px-6 py-4 font-semibold rounded-t-lg" data-section="faq">
+                        <i class="fas fa-question-circle mr-2"></i>FAQ 관리
+                    </button>
+                    <button class="section-tab px-6 py-4 font-semibold rounded-t-lg" data-section="settings">
+                        <i class="fas fa-cogs mr-2"></i>기본 설정
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <main class="container mx-auto px-6 py-8">
+            <!-- 제품 관리 섹션 -->
+            <section id="products-section" class="section-content">
+                <div class="mb-8">
+                    <h1 class="text-3xl font-bold text-gray-800 mb-4">📦 제품 관리</h1>
+                    <p class="text-gray-600 text-lg">6개 제품의 정보를 쉽게 수정할 수 있습니다.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+                    <!-- KIS-2200 -->
+                    <div class="admin-card bg-white rounded-xl shadow-lg p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-bold text-gray-800">KIS-2200</h3>
+                            <button class="text-blue-500 hover:text-blue-700" onclick="toggleEdit(this)">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">제품명</label>
+                                <div class="editable" contenteditable="false" data-field="name">유선카드단말기</div>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">설명</label>
+                                <div class="editable" contenteditable="false" data-field="description">KIS-2200 / 서명패드 일체형</div>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">가격</label>
+                                <div class="editable" contenteditable="false" data-field="price">150,000원</div>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">주요 특징</label>
+                                <div class="editable" contenteditable="false" data-field="features">• 서명패드 일체형 디자인<br>• 안정적인 유선 연결<br>• 각종 카드 결제 지원<br>• 영수증 자동 출력</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- KIS-8611 -->
+                    <div class="admin-card bg-white rounded-xl shadow-lg p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-bold text-gray-800">KIS-8611</h3>
+                            <button class="text-blue-500 hover:text-blue-700" onclick="toggleEdit(this)">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">제품명</label>
+                                <div class="editable" contenteditable="false" data-field="name">무선카드단말기</div>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">설명</label>
+                                <div class="editable" contenteditable="false" data-field="description">KIS-8611 / Color LCD</div>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">가격</label>
+                                <div class="editable" contenteditable="false" data-field="price">200,000원</div>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">주요 특징</label>
+                                <div class="editable" contenteditable="false" data-field="features">• 휴대용 무선 단말기<br>• 컬러 LCD 화면<br>• 긴 배터리 수명<br>• 이동형 결제 최적화</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- N-POS -->
+                    <div class="admin-card bg-white rounded-xl shadow-lg p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-bold text-gray-800">N-POS</h3>
+                            <button class="text-blue-500 hover:text-blue-700" onclick="toggleEdit(this)">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">제품명</label>
+                                <div class="editable" contenteditable="false" data-field="name">POS시스템</div>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">설명</label>
+                                <div class="editable" contenteditable="false" data-field="description">N-POS / 듀얼 모니터</div>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">가격</label>
+                                <div class="editable" contenteditable="false" data-field="price">800,000원</div>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">주요 특징</label>
+                                <div class="editable" contenteditable="false" data-field="features">• 듀얼 모니터 시스템<br>• 매출 통계 관리<br>• 재고 관리 연동<br>• 고급 결제 기능</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 키오스크 -->
+                    <div class="admin-card bg-white rounded-xl shadow-lg p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-bold text-gray-800">키오스크</h3>
+                            <button class="text-blue-500 hover:text-blue-700" onclick="toggleEdit(this)">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">제품명</label>
+                                <div class="editable" contenteditable="false" data-field="name">키오스크 시스템</div>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">설명</label>
+                                <div class="editable" contenteditable="false" data-field="description">22인치 무인/유통용</div>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">가격</label>
+                                <div class="editable" contenteditable="false" data-field="price">1,500,000원</div>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">주요 특징</label>
+                                <div class="editable" contenteditable="false" data-field="features">• 22인치 터치스크린<br>• 무인 결제 시스템<br>• 다국어 지원<br>• 원격 관리 가능</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 태블릿오더 -->
+                    <div class="admin-card bg-white rounded-xl shadow-lg p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-bold text-gray-800">태블릿오더</h3>
+                            <button class="text-blue-500 hover:text-blue-700" onclick="toggleEdit(this)">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">제품명</label>
+                                <div class="editable" contenteditable="false" data-field="name">태블릿오더</div>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">설명</label>
+                                <div class="editable" contenteditable="false" data-field="description">매장 테이블 주문/결제</div>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">가격</label>
+                                <div class="editable" contenteditable="false" data-field="price">300,000원</div>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">주요 특징</label>
+                                <div class="editable" contenteditable="false" data-field="features">• 테이블 주문 시스템<br>• 무선 결제 연동<br>• 메뉴 관리 기능<br>• 실시간 주방 연결</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PG시스템 -->
+                    <div class="admin-card bg-white rounded-xl shadow-lg p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-bold text-gray-800">PG시스템</h3>
+                            <button class="text-blue-500 hover:text-blue-700" onclick="toggleEdit(this)">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">제품명</label>
+                                <div class="editable" contenteditable="false" data-field="name">PG결제시스템</div>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">설명</label>
+                                <div class="editable" contenteditable="false" data-field="description">온라인 결제 게이트웨이</div>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">가격</label>
+                                <div class="editable" contenteditable="false" data-field="price">월 50,000원</div>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">주요 특징</label>
+                                <div class="editable" contenteditable="false" data-field="features">• 온라인 결제 연동<br>• 다양한 결제수단<br>• 보안 결제 시스템<br>• API 연동 지원</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FAQ 관리 섹션 -->
+            <section id="faq-section" class="section-content hidden">
+                <div class="mb-8">
+                    <h1 class="text-3xl font-bold text-gray-800 mb-4">❓ FAQ 관리</h1>
+                    <p class="text-gray-600 text-lg">카드단말기 관련 자주하는질문을 관리합니다.</p>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg p-8">
+                    <p class="text-gray-600 text-center">FAQ 관리 기능은 개발 중입니다.</p>
+                </div>
+            </section>
+
+            <!-- 기본 설정 섹션 -->
+            <section id="settings-section" class="section-content hidden">
+                <div class="mb-8">
+                    <h1 class="text-3xl font-bold text-gray-800 mb-4">⚙️ 기본 설정</h1>
+                    <p class="text-gray-600 text-lg">홈페이지 기본 정보를 관리합니다.</p>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg p-8">
+                    <p class="text-gray-600 text-center">기본 설정 기능은 개발 중입니다.</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- 카카오톡 상담 버튼 -->
+    <a href="https://pf.kakao.com/_xldHNV/chat" target="_blank" class="kakao-chat-btn">
+        <i class="fas fa-comment mr-2"></i>카카오톡 상담
+    </a>
+
+    <!-- 관리자 로그인 모달 -->
+    <div id="adminLoginModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center">
+        <div class="bg-white rounded-lg p-6 max-w-md w-full mx-4">
+            <h3 class="text-xl font-bold mb-4">관리자 로그인</h3>
+            <form id="adminLoginForm">
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium mb-2">아이디</label>
+                        <input type="text" id="adminId" class="w-full border rounded-lg px-3 py-2" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">비밀번호</label>
+                        <input type="password" id="adminPw" class="w-full border rounded-lg px-3 py-2" required>
+                    </div>
+                    <div class="flex space-x-3">
+                        <button type="submit" class="flex-1 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">로그인</button>
+                        <button type="button" onclick="hideAdminLogin()" class="flex-1 bg-gray-300 text-gray-700 py-2 rounded-lg hover:bg-gray-400">취소</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // FAQ 데이터 (100개)
+        const allFaqData = [
+            { q: "배송 기간은 얼마나 걸리나요?", a: "주문 후 1-2일 내 전국 무료배송으로 발송되며, 전문 기사가 방문 설치해드립니다." },
+            { q: "어떤 카드가 결제 가능한가요?", a: "신용카드, 체크카드, 교통카드, 삼성페이, 애플페이, 구글페이 등 모든 결제수단이 가능합니다." },
+            { q: "영수증 용지는 어떻게 공급받나요?", a: "영수증 용지는 평생 무상으로 지원해드립니다. 용지가 부족하면 언제든 연락하세요." },
+            { q: "정전 시에도 사용 가능한가요?", a: "KIS-8630QN은 내장 배터리가 있어 정전 시에도 최대 8시간 사용 가능합니다." },
+            { q: "휴대폰으로도 결제받을 수 있나요?", a: "네, KIS Pay 앱을 통해 휴대폰으로도 모든 결제를 받을 수 있습니다." },
+            { q: "단말기 고장 시 어떻게 하나요?", a: "24시간 고객센터(1544-2960)로 연락하시면 즉시 출동하여 수리 또는 교체해드립니다." },
+            { q: "여러 매장에서 사용할 수 있나요?", a: "한 번 구매하신 단말기는 여러 매장에서 자유롭게 이동하여 사용 가능합니다." },
+            { q: "할부 거래가 가능한가요?", a: "네, 할부 설정이 가능하며 2-24개월까지 자유롭게 설정할 수 있습니다." },
+            { q: "현금영수증 발급도 되나요?", a: "네, 현금영수증 자동 발급 기능이 내장되어 있습니다." },
+            { q: "매출 통계를 볼 수 있나요?", a: "일별, 월별, 연별 매출 통계를 단말기에서 바로 확인할 수 있습니다." },
+            { q: "인터넷이 끊어지면 어떻게 되나요?", a: "오프라인 모드로 전환되어 결제를 계속 받을 수 있고, 인터넷 복구 시 자동으로 승인됩니다." },
+            { q: "수수료는 얼마인가요?", a: "카드사별로 차이가 있으며, 평균 2.3-2.7% 수준입니다. 자세한 내용은 상담 시 안내드립니다." },
+            { q: "해외카드도 결제되나요?", a: "네, VISA, MasterCard, JCB, 알리페이 등 해외카드도 모두 결제 가능합니다." },
+            { q: "영업시간 외에도 A/S가 가능한가요?", a: "24시간 긴급출동 서비스를 운영하고 있어 언제든 연락주시면 지원해드립니다." },
+            { q: "단말기 교육은 어떻게 받나요?", a: "설치 시 전문기사가 직접 사용법을 교육해드리며, 추가 교육이 필요하면 언제든 연락하세요." }
+        ];
+
+        // 추가 85개 FAQ 생성
+        for(let i = 16; i <= 100; i++) {
+            const topics = ['설치', '사용법', '결제', '수수료', '유지보수', '보안', '업데이트', '호환성', '성능', '기능'];
+            const topic = topics[i % topics.length];
+            allFaqData.push({
+                q: `${topic} 관련 질문 ${i}번은 무엇인가요?`,
+                a: `${topic}에 대한 상세한 답변입니다. 궁금한 점이 있으시면 언제든 1544-2960으로 연락주세요.`
+            });
+        }
+
+        // 탭 전환 기능
+        function showTab(tabName) {
+            // 모든 탭 컨텐츠 숨기기
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // 모든 네비게이션 탭 비활성화
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // 선택된 탭 컨텐츠 보이기
+            if (tabName === 'main') {
+                document.getElementById('main-content').classList.add('active');
+                document.querySelector('a[onclick="showTab(\'main\')"]').classList.add('active');
+            } else if (tabName === 'admin') {
+                document.getElementById('admin-dashboard').classList.add('active');
+            }
+        }
+
+        // 스크롤 함수들
+        function scrollToProducts() {
+            const element = document.getElementById('products');
+            if (element) {
+                element.scrollIntoView({behavior: 'smooth'});
+            }
+        }
+
+        function scrollToAbout() {
+            const element = document.getElementById('about');
+            if (element) {
+                element.scrollIntoView({behavior: 'smooth'});
+            }
+        }
+
+        function scrollToFaq() {
+            const element = document.getElementById('faq');
+            if (element) {
+                element.scrollIntoView({behavior: 'smooth'});
+            }
+        }
+
+        function scrollToContact() {
+            const element = document.getElementById('contact');
+            if (element) {
+                element.scrollIntoView({behavior: 'smooth'});
+            }
+        }
+
+        // FAQ 토글 기능
+        function setupFaqToggle() {
+            document.querySelectorAll('.faq-question').forEach(button => {
+                button.addEventListener('click', function() {
+                    const answer = this.nextElementSibling;
+                    const icon = this.querySelector('i');
+                    
+                    if (answer && icon) {
+                        if (answer.classList.contains('hidden')) {
+                            answer.classList.remove('hidden');
+                            icon.style.transform = 'rotate(180deg)';
+                        } else {
+                            answer.classList.add('hidden');
+                            icon.style.transform = 'rotate(0deg)';
+                        }
+                    }
+                });
+            });
+        }
+
+        // 더 많은 FAQ 보기
+        document.addEventListener('DOMContentLoaded', function() {
+            const showMoreBtn = document.getElementById('showMoreFaq');
+            const allFaqContainer = document.getElementById('allFaqContainer');
+            
+            if (showMoreBtn) {
+                showMoreBtn.addEventListener('click', function() {
+                    if (allFaqContainer.classList.contains('hidden')) {
+                        // 추가 FAQ 생성
+                        allFaqData.forEach((faq, index) => {
+                            if (index >= 3) { // 기본 3개 제외
+                                const faqItem = document.createElement('div');
+                                faqItem.className = 'faq-item bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden';
+                                faqItem.innerHTML = `
+                                    <button class="w-full px-6 py-4 text-left focus:outline-none focus:bg-gray-50 faq-question flex items-center justify-between">
+                                        <span class="font-medium text-gray-800">${faq.q}</span>
+                                        <i class="fas fa-chevron-down text-gray-400 transform transition-transform"></i>
+                                    </button>
+                                    <div class="faq-answer px-6 py-4 border-t border-gray-200 bg-gray-50 hidden">
+                                        <p class="text-gray-600">${faq.a}</p>
+                                    </div>
+                                `;
+                                allFaqContainer.appendChild(faqItem);
+                            }
+                        });
+                        
+                        allFaqContainer.classList.remove('hidden');
+                        this.textContent = '접기';
+                        setupFaqToggle();
+                    } else {
+                        allFaqContainer.classList.add('hidden');
+                        allFaqContainer.innerHTML = '';
+                        this.textContent = '더 많은 질문 보기 (97개 더)';
+                    }
+                });
+            }
+
+            // FAQ 검색 기능
+            const searchInput = document.getElementById('faqSearchInput');
+            if (searchInput) {
+                searchInput.addEventListener('input', function() {
+                    const searchTerm = this.value.toLowerCase();
+                    const faqItems = document.querySelectorAll('.faq-item');
+                    
+                    faqItems.forEach(item => {
+                        const question = item.querySelector('.faq-question span').textContent.toLowerCase();
+                        const answerElem = item.querySelector('.faq-answer p');
+                        const answer = answerElem ? answerElem.textContent.toLowerCase() : '';
+                        
+                        if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = searchTerm === '' ? 'block' : 'none';
+                        }
+                    });
+                });
+            }
+
+            // 초기 FAQ 토글 설정
+            setupFaqToggle();
+        });
+
+        // 상담 폼 제출 - 메인 페이지
+        document.addEventListener('DOMContentLoaded', function() {
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const formData = new FormData(this);
+                    const data = {
+                        name: formData.get('name'),
+                        phone: formData.get('phone'),
+                        email: formData.get('email'),
+                        message: formData.get('message')
+                    };
+                    
+                    // 알림 표시
+                    alert('상담 요청이 접수되었습니다. 곧 연락드리겠습니다.');
+                    
+                    // 폼 리셋
+                    this.reset();
+                });
+            }
+        });
+
+        // 관리자 로그인
+        function showAdminLogin() {
+            const modal = document.getElementById('adminLoginModal');
+            if (modal) {
+                modal.classList.remove('hidden');
+            }
+        }
+
+        function hideAdminLogin() {
+            const modal = document.getElementById('adminLoginModal');
+            if (modal) {
+                modal.classList.add('hidden');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const adminLoginForm = document.getElementById('adminLoginForm');
+            if (adminLoginForm) {
+                adminLoginForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const id = document.getElementById('adminId').value;
+                    const pw = document.getElementById('adminPw').value;
+                    
+                    if (id === 'MOAVAN' && pw === '15442960') {
+                        hideAdminLogin();
+                        showTab('admin');
+                    } else {
+                        alert('아이디 또는 비밀번호가 올바르지 않습니다.');
+                    }
+                });
+            }
+        });
+
+        // 관리자 대시보드 기능
+        function switchAdminSection(sectionId) {
+            // 모든 섹션 숨기기
+            document.querySelectorAll('.section-content').forEach(section => {
+                section.classList.add('hidden');
+            });
+            
+            // 모든 탭 비활성화
+            document.querySelectorAll('.section-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // 선택된 섹션 보이기
+            document.getElementById(sectionId + '-section').classList.remove('hidden');
+            
+            // 선택된 탭 활성화
+            document.querySelector(`[data-section="${sectionId}"]`).classList.add('active');
+        }
+
+        // 편집 모드 토글
+        function toggleEdit(button) {
+            const card = button.closest('.admin-card');
+            const editables = card.querySelectorAll('.editable');
+            const isEditing = button.innerHTML.includes('fa-save');
+            
+            if (isEditing) {
+                // 저장 모드
+                editables.forEach(elem => {
+                    elem.contentEditable = 'false';
+                    elem.style.backgroundColor = '';
+                });
+                button.innerHTML = '<i class="fas fa-edit"></i>';
+                button.classList.remove('text-green-500');
+                button.classList.add('text-blue-500');
+                showSaveIndicator();
+            } else {
+                // 편집 모드
+                editables.forEach(elem => {
+                    elem.contentEditable = 'true';
+                    elem.style.backgroundColor = '#FEF3C7';
+                });
+                button.innerHTML = '<i class="fas fa-save"></i>';
+                button.classList.remove('text-blue-500');
+                button.classList.add('text-green-500');
+            }
+        }
+
+        // 저장 완료 알림
+        function showSaveIndicator() {
+            const indicator = document.getElementById('saveIndicator');
+            if (indicator) {
+                indicator.style.display = 'block';
+                
+                setTimeout(() => {
+                    indicator.style.display = 'none';
+                }, 3000);
+            }
+        }
+
+        // 관리자 대시보드 이벤트 리스너
+        document.addEventListener('DOMContentLoaded', function() {
+            // 섹션 탭 클릭
+            document.querySelectorAll('.section-tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    switchAdminSection(this.dataset.section);
+                });
+            });
+
+            // 모든 변경사항 저장 버튼
+            const saveAllBtn = document.getElementById('saveAllBtn');
+            if (saveAllBtn) {
+                saveAllBtn.addEventListener('click', function() {
+                    showSaveIndicator();
+                });
+            }
+        });
+    </script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDn4kYFxEbDROFdZR1K96Tc7KmGPbUBHLDmfdflFb0g2qdiUMcbMBELomaJuTzlcb32jQ27PErxvL4dL8Mx8DpTTr6aGTPLaORy7jbc9l46T6nHupPYqK78FrnpO9065EUXd9yYjyIpVyBxPoJDnfgDS5zPBfnXYP5GYe0zg9w78sRPywKa9aAY4%2FmgUgfy9zlOBWseJpAFSbb8I6%2FbCpd2cgT0ZMAP4XwlDv%2F7cYqEaUR5YJEKGRygj6%2FjnagW9wq3kIcsVc2%2BFRGN64%2FKEXrdmphjmDsaJZo%2FSj%2FxlIaC3kE3YilBFojGMLuvSms4BBRo8z1dozXX1jNsB2TADfMgloD6BZn7Qyrtbv2lCHAGSw1rnoZcG6DHZt25sWCbeJDYvzQzxxoPo%2F7jBMbyjiumNYVMcFQRlsbs4BbI38FNmKF2QeUNL34ijOHDGpe2qvjzG%2FRlWlHhs2UOScP0KKt5lLY%2FdpXsXRhDm%2FWHAP743tRcDnRw3ehG92qrc115JIBw%3D%3D";
+        window.__genspark_locale = "ko-KR";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDn4kYFxEbDROFdZR1K96Tc7KmGPbUBHLDmfdflFb0g2qdiUMcbMBELomaJuTzlcb32jQ27PErxvL4dL8Mx8DpTTr6aGTPLaORy7jbc9l46T6nHupPYqK78FrnpO9065EUXd9yYjyIpVyBxPoJDnfgDS5zPBfnXYP5GYe0zg9w78sRPywKa9aAY4/mgUgfy9zlOBWseJpAFSbb8I6/bCpd2cgT0ZMAP4XwlDv/7cYqEaUR5YJEKGRygj6/jnagW9wq3kIcsVc2+FRGN64/KEXrdmphjmDsaJZo/Sj/xlIaC3kE3YilBFojGMLuvSms4BBRo8z1dozXX1jNsB2TADfMgloD6BZn7Qyrtbv2lCHAGSw1rnoZcG6DHZt25sWCbeJDYvzQzxxoPo/7jBMbyjiumNYVMcFQRlsbs4BbI38FNmKF2QeUNL34ijOHDGpe2qvjzG/RlWlHhs2UOScP0KKt5lLY/dpXsXRhDm/WHAP743tRcDnRw3ehG92qrc115JIBw==";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

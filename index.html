@@ -755,6 +755,30 @@
                     });
                 });
             }
+// FAQ 검색 - 엔터키 지원
+const searchInput2 = document.getElementById('faqSearchInput');
+if (searchInput2) {
+    searchInput2.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter' || e.keyCode === 13) {
+            e.preventDefault(); // 폼 제출 방지
+            
+            const searchTerm = this.value.toLowerCase();
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question span').textContent.toLowerCase();
+                const answerElem = item.querySelector('.faq-answer p');
+                const answer = answerElem ? answerElem.textContent.toLowerCase() : '';
+                
+                if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = searchTerm === '' ? 'block' : 'none';
+                }
+            });
+        }
+    });
+}
 
             setupFaqToggle();
         });

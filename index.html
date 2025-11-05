@@ -69,6 +69,71 @@
             overflow-y: auto;
         }
         
+        .admin-toolbar {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem;
+            z-index: 10000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+        
+        .edit-mode .editable-text {
+            outline: 2px dashed #fbbf24;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .edit-mode .editable-text:hover {
+            outline: 2px solid #f59e0b;
+            background: rgba(251, 191, 36, 0.1);
+        }
+        
+        .edit-mode .editable-text:hover::after {
+            content: '✏️ 편집';
+            position: absolute;
+            top: -25px;
+            left: 0;
+            background: #f59e0b;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .edit-mode .editable-image {
+            outline: 2px dashed #3b82f6;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .edit-mode .editable-image:hover {
+            outline: 2px solid #2563eb;
+            opacity: 0.8;
+        }
+        
+        .edit-mode .editable-image:hover::after {
+            content: '🖼️ 이미지 변경';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #2563eb;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+        
         .admin-panel {
             background: white;
             max-width: 1200px;
@@ -138,6 +203,34 @@
     </style>
 </head>
 <body class="bg-gray-50">
+    <!-- 관리자 편집 툴바 -->
+    <div id="adminToolbar" class="admin-toolbar">
+        <div class="container mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <div class="text-xl font-bold">
+                    <i class="fas fa-edit"></i> 편집 모드
+                </div>
+                <div class="text-sm opacity-90">
+                    클릭하여 텍스트/이미지를 수정하세요
+                </div>
+            </div>
+            <div class="flex items-center gap-3">
+                <span class="save-notification text-yellow-300 font-bold" style="display: none;">
+                    <i class="fas fa-exclamation-triangle"></i> 저장되지 않은 변경사항
+                </span>
+                <button onclick="saveChanges()" class="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg font-bold transition">
+                    <i class="fas fa-save"></i> 저장
+                </button>
+                <button onclick="downloadHTML()" class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg font-bold transition">
+                    <i class="fas fa-download"></i> HTML 다운로드
+                </button>
+                <button onclick="cancelEdit()" class="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-lg font-bold transition">
+                    <i class="fas fa-times"></i> 취소
+                </button>
+            </div>
+        </div>
+    </div>
+    
     <!-- 이벤트 알림 배너 -->
     <div class="event-badge text-white text-center py-3 px-4">
         <a href="https://moavan.com/event.html" class="flex items-center justify-center gap-3 hover:opacity-90 transition">
@@ -453,7 +546,7 @@
             
             <!-- 추가 정보 -->
             <div class="mt-8 text-center">
-                <p class="text-gray-500 text-sm mb-2">📧 이메일 상담: <a href="/cdn-cgi/l/email-protection#d1b5bcb3e2e291bfb0a7b4a3ffb2bebc" class="text-purple-600 hover:underline"><span class="__cf_email__" data-cfemail="e3878e81d0d0a38d82958691cd808c8e">[email&#160;protected]</span></a></p>
+                <p class="text-gray-500 text-sm mb-2">📧 이메일 상담: <a href="/cdn-cgi/l/email-protection#187c757a2b2b5876796e7d6a367b7775" class="text-purple-600 hover:underline"><span class="__cf_email__" data-cfemail="1e7a737c2d2d5e707f687b6c307d7173">[email&#160;protected]</span></a></p>
                 <p class="text-gray-500 text-sm">⏰ 상담 가능 시간: 평일 09:00 - 18:00</p>
             </div>
         </div>
@@ -493,7 +586,7 @@
                     <ul class="space-y-2 text-gray-400">
                         <li>📞 1544-2960</li>
                         <li>📱 010-9979-2343</li>
-                        <li>📧 <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="36525b5405057658574053441855595b">[email&#160;protected]</a></li>
+                        <li>📧 <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4d29202f7e7e0d232c3b283f632e2220">[email&#160;protected]</a></li>
                         <li>💬 카카오톡 상담</li>
                     </ul>
                 </div>
@@ -845,13 +938,126 @@
             }
         }
 
+        let editMode = false;
+        
         function showAdminDashboard() {
-            document.getElementById('adminDashboard').style.display = 'block';
-            renderProductManagement();
+            hideAdminLogin();
+            enableEditMode();
         }
 
         function hideAdminDashboard() {
-            document.getElementById('adminDashboard').style.display = 'none';
+            disableEditMode();
+        }
+        
+        function enableEditMode() {
+            editMode = true;
+            document.body.classList.add('edit-mode');
+            document.getElementById('adminToolbar').style.display = 'flex';
+            
+            // 텍스트 편집 가능하게
+            document.querySelectorAll('h1, h2, h3, h4, h5, p, span, div, a, li').forEach(el => {
+                // 버튼, 입력필드, 아이콘 제외
+                if (!el.closest('button') && !el.closest('input') && !el.closest('.admin-toolbar') && 
+                    !el.classList.contains('fas') && !el.classList.contains('fa') &&
+                    el.textContent.trim().length > 0 && el.children.length === 0) {
+                    el.classList.add('editable-text');
+                    el.setAttribute('contenteditable', 'false');
+                    el.onclick = function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        editText(this);
+                    };
+                }
+            });
+            
+            // 이미지 편집 가능하게
+            document.querySelectorAll('img').forEach(img => {
+                if (!img.closest('.admin-toolbar')) {
+                    img.classList.add('editable-image');
+                    img.onclick = function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        editImage(this);
+                    };
+                }
+            });
+            
+            alert('🎉 편집 모드 활성화!\n\n• 노란색 테두리: 텍스트 클릭하여 수정\n• 파란색 테두리: 이미지 클릭하여 URL 변경\n• 상단 툴바에서 저장/취소 가능');
+        }
+        
+        function disableEditMode() {
+            editMode = false;
+            document.body.classList.remove('edit-mode');
+            document.getElementById('adminToolbar').style.display = 'none';
+            
+            // 모든 편집 요소 제거
+            document.querySelectorAll('.editable-text, .editable-image').forEach(el => {
+                el.classList.remove('editable-text', 'editable-image');
+                el.removeAttribute('contenteditable');
+                el.onclick = null;
+            });
+        }
+        
+        function editText(element) {
+            const originalText = element.textContent;
+            const newText = prompt('텍스트를 수정하세요:', originalText);
+            
+            if (newText !== null && newText !== originalText) {
+                element.textContent = newText;
+                showSaveNotification();
+            }
+        }
+        
+        function editImage(img) {
+            const originalSrc = img.src;
+            const newSrc = prompt('새로운 이미지 URL을 입력하세요:', originalSrc);
+            
+            if (newSrc !== null && newSrc !== originalSrc) {
+                img.src = newSrc;
+                showSaveNotification();
+            }
+        }
+        
+        function showSaveNotification() {
+            const toolbar = document.getElementById('adminToolbar');
+            const saveBtn = toolbar.querySelector('.save-notification');
+            if (saveBtn) {
+                saveBtn.style.display = 'inline-block';
+                saveBtn.classList.add('pulse-button');
+            }
+        }
+        
+        function saveChanges() {
+            // 변경사항을 localStorage에 저장 (실제 프로젝트에서는 서버로 전송)
+            const changes = {
+                timestamp: new Date().toISOString(),
+                html: document.documentElement.outerHTML
+            };
+            
+            localStorage.setItem('moavan_changes', JSON.stringify(changes));
+            
+            alert('✅ 변경사항이 저장되었습니다!\n\n주의: 실제 파일에 반영하려면\nGitHub에 수동으로 업로드해야 합니다.');
+            
+            document.querySelector('.save-notification').style.display = 'none';
+        }
+        
+        function downloadHTML() {
+            const html = document.documentElement.outerHTML;
+            const blob = new Blob([html], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'index_edited.html';
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            alert('✅ HTML 파일이 다운로드되었습니다!\n\nGitHub에 업로드하여 변경사항을 반영하세요.');
+        }
+        
+        function cancelEdit() {
+            if (confirm('모든 변경사항이 취소됩니다. 계속하시겠습니까?')) {
+                location.reload();
+            }
         }
 
         function showTab(tabName) {

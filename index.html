@@ -453,7 +453,7 @@
             
             <!-- 추가 정보 -->
             <div class="mt-8 text-center">
-                <p class="text-gray-500 text-sm mb-2">📧 이메일 상담: <a href="mailto:dmb33@naver.com" class="text-purple-600 hover:underline">dmb33@naver.com</a></p>
+                <p class="text-gray-500 text-sm mb-2">📧 이메일 상담: <a href="/cdn-cgi/l/email-protection#d1b5bcb3e2e291bfb0a7b4a3ffb2bebc" class="text-purple-600 hover:underline"><span class="__cf_email__" data-cfemail="e3878e81d0d0a38d82958691cd808c8e">[email&#160;protected]</span></a></p>
                 <p class="text-gray-500 text-sm">⏰ 상담 가능 시간: 평일 09:00 - 18:00</p>
             </div>
         </div>
@@ -493,7 +493,7 @@
                     <ul class="space-y-2 text-gray-400">
                         <li>📞 1544-2960</li>
                         <li>📱 010-9979-2343</li>
-                        <li>📧 dmb33@naver.com</li>
+                        <li>📧 <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="36525b5405057658574053441855595b">[email&#160;protected]</a></li>
                         <li>💬 카카오톡 상담</li>
                     </ul>
                 </div>
@@ -563,7 +563,7 @@
         </div>
     </div>
 
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         // FAQ 데이터 (100개)
         const faqData = [
             { q: "카드단말기 설치 비용이 얼마인가요?", a: "설치 비용은 무료입니다. 단말기 렌탈료만 부담하시면 됩니다." },
@@ -713,9 +713,43 @@
         ];
 
         // FAQ 렌더링
-        function renderFAQ(filteredData = faqData) {
+        function renderFAQ(filteredData = faqData, showNoResults = false) {
             const faqList = document.getElementById('faqList');
             faqList.innerHTML = '';
+            
+            // 검색 결과가 없을 때
+            if (filteredData.length === 0) {
+                faqList.innerHTML = `
+                    <div class="bg-yellow-50 border-2 border-yellow-200 rounded-lg p-8 text-center">
+                        <i class="fas fa-search text-yellow-600 text-5xl mb-4"></i>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">검색 결과가 없습니다</h3>
+                        <p class="text-gray-600 mb-4">상담원에게 지금 문의해보세요</p>
+                        <a href="#contact" class="inline-block bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition font-bold">
+                            <i class="fas fa-headset"></i> 빠른 상담 신청
+                        </a>
+                    </div>
+                `;
+                return;
+            }
+            
+            // 검색어가 없을 때 (초기 상태)
+            if (!showNoResults && filteredData.length === faqData.length) {
+                faqList.innerHTML = `
+                    <div class="bg-purple-50 border-2 border-purple-200 rounded-lg p-8 text-center">
+                        <i class="fas fa-question-circle text-purple-600 text-5xl mb-4"></i>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">궁금한 내용을 검색해주세요</h3>
+                        <p class="text-gray-600 mb-4">100개 이상의 FAQ가 준비되어 있습니다</p>
+                        <p class="text-sm text-gray-500">예: "설치 비용", "A/S", "할부 결제" 등</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // 검색 결과 표시
+            const resultCount = document.createElement('div');
+            resultCount.className = 'mb-4 text-gray-600 text-center';
+            resultCount.innerHTML = `<i class="fas fa-check-circle text-green-600"></i> <strong>${filteredData.length}개</strong>의 관련 질문을 찾았습니다`;
+            faqList.appendChild(resultCount);
             
             filteredData.forEach((faq, index) => {
                 const faqItem = document.createElement('div');
@@ -744,18 +778,21 @@
 
         // FAQ 검색
         function searchFAQ() {
-            const searchTerm = document.getElementById('faqSearch').value.toLowerCase();
+            const searchTerm = document.getElementById('faqSearch').value.toLowerCase().trim();
+            
+            // 검색어가 없으면 안내 메시지
             if (!searchTerm) {
-                renderFAQ();
+                renderFAQ(faqData, false);
                 return;
             }
             
+            // 검색 수행
             const filtered = faqData.filter(faq => 
                 faq.q.toLowerCase().includes(searchTerm) || 
                 faq.a.toLowerCase().includes(searchTerm)
             );
             
-            renderFAQ(filtered);
+            renderFAQ(filtered, true);
         }
 
         // 엔터키 검색 기능 추가
@@ -874,7 +911,7 @@
 
         // 페이지 로드 시 실행
         document.addEventListener('DOMContentLoaded', function() {
-            renderFAQ();
+            renderFAQ(faqData, false); // 초기에는 안내 메시지만 표시
             renderProducts();
         });
     </script>

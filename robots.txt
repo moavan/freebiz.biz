@@ -1,0 +1,23 @@
+# robots.txt for https://moavan.com/
+User-agent: *
+Allow: /
+Disallow: /admin/
+
+# Sitemap
+Sitemap: https://moavan.com/sitemap.xml
+
+# Crawl-delay
+Crawl-delay: 1
+
+# 주요 검색엔진
+User-agent: Googlebot
+Allow: /
+
+User-agent: Yeti
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /

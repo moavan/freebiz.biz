@@ -1,4 +1,7 @@
 (() => {
+  const analytics = document.createElement('script');
+  analytics.src = '/assets/analytics.js';
+  document.head.append(analytics);
   const input = document.querySelector('#guide-search');
   if (input) {
     const cards = [...document.querySelectorAll('.guide-card')];

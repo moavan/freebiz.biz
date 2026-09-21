@@ -1,0 +1,52 @@
+{
+  "version": 1,
+  "series_id": "card-terminal-start-20260920-compiled",
+  "source_publication_sha256": "051871815b6ecc0ebc81c68e8da434010a3cfb8479db1e1c3c52cadca7ad9ff5",
+  "entries": [
+    {
+      "part": 1,
+      "title": "1편 · 처음 카드단말기를 준비할 때 필요한 서류와 선택 기준",
+      "summary": "서류는 많이 보내는 것보다 현재 사업자 정보와 신청 주체를 정확히 맞추는 것이 중요합니다. 기본 준비 항목을 확인하고, 상담에서 안내받은 제출 경로로 필요한 자료만 보내세요.",
+      "url": "https://moavan.com/blog/card-terminal-start-1.html",
+      "source_url": "https://blog.naver.com/moavan/224417927822",
+      "published_at": "2026-09-22T00:56:34+09:00",
+      "category": "창업 준비",
+      "images": [
+        "https://moavan.com/assets/blog/card-terminal-start-1-1.jpg",
+        "https://moavan.com/assets/blog/card-terminal-start-1-2.jpg"
+      ],
+      "video": "https://moavan.com/assets/naver-series/card-terminal-start-20260920-compiled-part-1.mp4",
+      "source_bundle_hash": "eaa7fea112337247f048d7c884750ff3032c52f512660b223034bd3bf7528af2"
+    },
+    {
+      "part": 2,
+      "title": "2편 · 카드단말기 신청부터 심사·설치·개통 확인까지",
+      "summary": "신청 접수, 서류 확인, 심사와 등록, 장비 수령, 첫 결제 확인은 서로 다른 단계입니다. 어느 단계까지 끝났는지 확인하면 매장 오픈과 장비 교체 일정을 더 정확하게 준비할 수 있습니다.",
+      "url": "https://moavan.com/blog/card-terminal-start-2.html",
+      "source_url": "https://blog.naver.com/moavan/224417935536",
+      "published_at": "2026-09-22T00:56:34+09:00",
+      "category": "창업 준비",
+      "images": [
+        "https://moavan.com/assets/blog/card-terminal-start-2-1.jpg",
+        "https://moavan.com/assets/blog/card-terminal-start-2-2.jpg"
+      ],
+      "video": "https://moavan.com/assets/naver-series/card-terminal-start-20260920-compiled-part-2.mp4",
+      "source_bundle_hash": "13407c1e12a9979c65225a8472590326a77b0a1e051f43c854c1f216b08abc26"
+    },
+    {
+      "part": 3,
+      "title": "3편 · 첫 카드결제부터 취소·매출 확인·정산 관리까지",
+      "summary": "하루 영업을 마칠 때는 단말기 합계만 보고 끝내지 마세요. 주문 기록과 승인·취소 내역을 맞추고, 실제 입금은 정산 내역과 따로 확인하는 간단한 마감 순서를 정리했습니다.",
+      "url": "https://moavan.com/blog/card-terminal-start-3.html",
+      "source_url": "https://blog.naver.com/moavan/224417938132",
+      "published_at": "2026-09-22T00:56:34+09:00",
+      "category": "결제·정산",
+      "images": [
+        "https://moavan.com/assets/blog/card-terminal-start-3-1.jpg",
+        "https://moavan.com/assets/blog/card-terminal-start-3-2.jpg"
+      ],
+      "video": "https://moavan.com/assets/naver-series/card-terminal-start-20260920-compiled-part-3.mp4",
+      "source_bundle_hash": "da812d8da82b75e4354641fd76e188505bb64c110e7630bb0cbaf20e2d9b3fbe"
+    }
+  ]
+}
